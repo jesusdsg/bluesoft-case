@@ -18,6 +18,8 @@ import {
   BrowserAnimationsModule,
   provideAnimations,
 } from '@angular/platform-browser/animations';
+import { provideStore } from '@ngrx/store';
+import { authReducer } from './core/auth.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -27,10 +29,6 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(),
     provideToastr(),
     provideAnimations(),
-    //importProvidersFrom(BrowserAnimationsModule),
-    /* provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
-    provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore()),
-    provideStorage(() => getStorage()), */
+    provideStore({ auth: authReducer }),
   ],
 };

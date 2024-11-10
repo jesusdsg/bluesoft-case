@@ -10,6 +10,8 @@ import { AuthService } from '../../core/auth.service';
 import { SpinnerService } from '../../common/spinner/spinner.service';
 import { validateError } from '../../../utils/firebaseAuthCodes';
 import { ToastrService } from 'ngx-toastr';
+import { UserService } from '../../user/user.service';
+import { FirebaseError } from '@angular/fire/app';
 
 @Component({
   selector: 'app-signup',
@@ -31,7 +33,8 @@ export class SignupComponent {
     private fb: FormBuilder,
     private authService: AuthService,
     private spinnerService: SpinnerService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private userService: UserService
   ) {
     this.signupForm = this.fb.group(
       {
@@ -49,12 +52,30 @@ export class SignupComponent {
       try {
         const { email, password } = this.signupForm.value;
         const response = await this.authService.signUp(email, password);
-        console.log('Response is ', response);
-        //this.spinnerService.hide();
-      } catch (error: any) {
-        console.log('Error is ', error.code);
-        const errorMessage = validateError(error);
-        this.toastr.error(errorMessage);
+        if (response.user) {
+          // If register sucess then create user :)
+          const user = response.user;
+          const newUser = {
+            id: user.uid,
+            name: '',
+            email: user.email!,
+          };
+          try {
+            await this.userService.addUser(newUser);
+            this.toastr.success('Usuario creado con éxito');
+          } catch (dbError) {
+            await user.delete();
+            this.toastr.error(
+              'Ocurrió un error al guardar el usuario en la base de datos. Se eliminó el registro.'
+            );
+          }
+        }
+        this.spinnerService.hide();
+      } catch (error) {
+        if (error instanceof FirebaseError) {
+          const errorMessage = validateError(error);
+          this.toastr.error(errorMessage);
+        }
       }
     } else {
       this.signupForm.markAllAsTouched();
