@@ -7,8 +7,7 @@ export const routes: Routes = [
   },
   {
     path: 'user',
-    loadChildren: () =>
-      import('./user/user.module').then((m) => m.UserManagementModule),
+    loadChildren: () => import('./user/user.module').then((m) => m.UserModule),
   },
   { path: '**', redirectTo: 'auth/login' },
 ];
