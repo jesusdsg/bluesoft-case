@@ -20,6 +20,7 @@ export const authReducer = createReducer(
 function getLocalStorageUser(): IUser | null {
   if (typeof sessionStorage !== 'undefined') {
     const user = sessionStorage.getItem('user');
+    console.log('user is ', user);
     return user ? JSON.parse(user) : null;
   }
   return null;

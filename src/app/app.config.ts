@@ -9,8 +9,11 @@ import { provideToastr } from 'ngx-toastr';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideStore } from '@ngrx/store';
 import { authReducer } from '../app/store/auth/auth.reducer';
-import { AuthEffects } from './store/auth/auth.effect';
-import { provideEffects } from '@ngrx/effects';
+import { localStorageSync } from 'ngrx-store-localstorage';
+
+export function getStorage() {
+  return typeof sessionStorage !== 'undefined' ? sessionStorage : null;
+}
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -20,7 +23,13 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(),
     provideToastr(),
     provideAnimations(),
-    provideStore({ auth: authReducer }),
-    //provideEffects([AuthEffects]),
+    provideStore(
+      { auth: authReducer },
+      {
+        metaReducers: [
+          localStorageSync({ keys: ['auth'], storage: getStorage()! }),
+        ], // persist in auth :D
+      }
+    ),
   ],
 };
