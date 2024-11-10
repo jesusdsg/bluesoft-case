@@ -1,0 +1,27 @@
+<div class="container">
+  <!-- <div *ngIf="currentUser | async as currentUser" class="container">
+    <h1>Bienvenido {{ currentUser.email }}</h1>
+    <button (click)="logoutUser()">Cerrar sesión</button>
+  </div> -->
+
+  <div class="inner-container">
+    <h2>Bienvenido Usuario</h2>
+    <div class="btn-container" *ngIf="!isDeposit && !isWithdrawal">
+      <button class="btn btn-primary" (click)="goToDeposit()">Depositar</button>
+      <button class="btn btn-secondary" (click)="goToWithdrawal()">
+        Retirar
+      </button>
+      <button class="btn btn-error" (click)="logoutUser()">
+        Cerrar sesión
+      </button>
+    </div>
+    <div class="action-container" *ngIf="isDeposit || isWithdrawal">
+      <input class="input" type="text" placeholder="Ingrese el monto" />
+      <span>Su saldo es: $2323232</span>
+      <button class="btn btn-secondary">
+        {{ isDeposit ? "Depositar" : "Retirar" }}
+      </button>
+      <button class="btn btn-error" (click)="cancelAction()">Cancelar</button>
+    </div>
+  </div>
+</div>

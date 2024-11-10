@@ -8,7 +8,7 @@ import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { provideToastr } from 'ngx-toastr';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideStore } from '@ngrx/store';
-import { authReducer } from './core/auth.reducer';
+import { authReducer } from '../app/store/auth/auth.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [

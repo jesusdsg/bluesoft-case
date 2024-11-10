@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { login, logout } from './auth.actions';
-import { IUser } from '../types/User';
+import { IUser } from '../../types/User';
 
 export interface AuthState {
   user: IUser | null;

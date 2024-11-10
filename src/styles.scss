@@ -11,7 +11,7 @@ body {
 }
 
 .btn {
-  padding: 0.8rem;
+  padding: 0.5rem 0.8rem;
   border: none;
   border-radius: 5px;
   font-size: 1rem;
@@ -24,6 +24,20 @@ body {
   background-color: #469ee6;
   &:hover {
     background-color: #2086da;
+  }
+}
+
+.btn-secondary {
+  background-color: #13db8f;
+  &:hover {
+    background-color: #10b374;
+  }
+}
+
+.btn-error {
+  background-color: #db134f;
+  &:hover {
+    background-color: #b80e41;
   }
 }
 

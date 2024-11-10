@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../core/auth.service';
-import { AuthState } from '../../core/auth.reducer';
+import { AuthState } from '../../store/auth/auth.reducer';
 import { Store } from '@ngrx/store';
-import { login } from '../../core/auth.actions';
+import { login } from '../../store/auth/auth.actions';
 import { IUser } from '../../types/User';
 import { Router } from '@angular/router';
 import { SpinnerService } from '../../common/spinner/spinner.service';
@@ -48,7 +48,7 @@ export class LoginComponent {
           };
           // Store user and go to detail
           this.store.dispatch(login({ user }));
-          this.router.navigate(['/user/list']);
+          this.router.navigate(['/user/detail']);
           this.spinnerService.hide();
         }
       } catch (error) {

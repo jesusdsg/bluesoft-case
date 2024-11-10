@@ -12,6 +12,7 @@ import { validateError } from '../../../utils/firebaseAuthCodes';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../../user/user.service';
 import { FirebaseError } from '@angular/fire/app';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -34,7 +35,8 @@ export class SignupComponent {
     private authService: AuthService,
     private spinnerService: SpinnerService,
     private toastr: ToastrService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) {
     this.signupForm = this.fb.group(
       {
@@ -64,6 +66,7 @@ export class SignupComponent {
           try {
             await this.userService.addUser(newUser);
             this.toastr.success('Usuario creado con éxito');
+            this.router.navigate(['/user/detail']);
           } catch (dbError) {
             await user.delete();
             this.toastr.error(
