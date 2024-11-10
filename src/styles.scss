@@ -1,0 +1,43 @@
+/* You can add global styles to this file, and also import other style files */
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: "Lato", "Roboto", sans-serif;
+}
+
+.btn {
+  padding: 0.8rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.5s;
+}
+
+.btn-primary {
+  background-color: #469ee6;
+  &:hover {
+    background-color: #2086da;
+  }
+}
+
+.input {
+  padding: 0.5rem 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  ::placeholder {
+    color: #a0a0a0;
+  }
+
+  transition-duration: 0.5s;
+
+  &:focus {
+    outline: none;
+    border: 1px solid #b9b9b9;
+  }
+}
