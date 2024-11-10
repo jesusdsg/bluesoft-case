@@ -38,13 +38,17 @@
         formControlName="confirmPassword"
       />
       <!-- Confirm errors -->
-      <div *ngIf="confirmPassword?.invalid && confirmPassword?.touched">
+      <div
+        *ngIf="confirmPassword?.invalid && confirmPassword?.touched"
+        class="error"
+      >
         <small *ngIf="confirmPassword?.errors?.['required']"
           >La confirmación de la contraseña es requerida</small
         >
       </div>
       <div
         *ngIf="signupForm.errors?.['passwordMismatch'] && confirmPassword?.touched"
+        class="error"
       >
         <small>Las contraseñas no coinciden</small>
       </div>

@@ -7,6 +7,9 @@ import {
   ValidationErrors,
 } from '@angular/forms';
 import { AuthService } from '../../core/auth.service';
+import { SpinnerService } from '../../common/spinner/spinner.service';
+import { validateError } from '../../../utils/firebaseAuthCodes';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-signup',
@@ -24,7 +27,12 @@ export class SignupComponent {
     return password === confirmPassword ? null : { passwordMismatch: true };
   }
 
-  constructor(private fb: FormBuilder, public authService: AuthService) {
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private spinnerService: SpinnerService,
+    private toastr: ToastrService
+  ) {
     this.signupForm = this.fb.group(
       {
         email: ['', [Validators.required, Validators.email]],
@@ -35,16 +43,20 @@ export class SignupComponent {
     );
   }
 
-  onSubmit() {
+  async onSubmit() {
+    this.spinnerService.show();
     if (this.signupForm.valid) {
       try {
         const { email, password } = this.signupForm.value;
-        const response = this.authService.signUp(email, password);
-      } catch (error) {
-        console.log('Error is ', error);
+        const response = await this.authService.signUp(email, password);
+        console.log('Response is ', response);
+        //this.spinnerService.hide();
+      } catch (error: any) {
+        console.log('Error is ', error.code);
+        const errorMessage = validateError(error);
+        this.toastr.error(errorMessage);
       }
     } else {
-      console.log('Formulario inválido');
       this.signupForm.markAllAsTouched();
     }
   }
