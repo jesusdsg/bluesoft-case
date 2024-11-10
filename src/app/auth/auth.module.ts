@@ -18,7 +18,6 @@ import { AngularFireAuthGuardModule } from '@angular/fire/compat/auth-guard';
     AuthRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    FirebaseAppModule,
     AngularFireAuthGuardModule,
     AngularFireAuthModule,
   ],
