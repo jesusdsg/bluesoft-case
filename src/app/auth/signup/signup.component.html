@@ -3,6 +3,19 @@
     <h2>Registro de usuario</h2>
     <p>Bienvenido a Bluesoft, vamos a comenzar</p>
     <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+      <!-- Name field -->
+      <input
+        class="input"
+        type="text"
+        placeholder="Ingresa tu nombre"
+        formControlName="name"
+      />
+      <!-- Name errors -->
+      <div *ngIf="name?.touched && name?.invalid" class="error">
+        <small *ngIf="name?.errors?.['required']"
+          >Este campo es requerido</small
+        >
+      </div>
       <!-- Email field -->
       <input
         class="input"

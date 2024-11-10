@@ -38,6 +38,7 @@ export class SignupComponent {
   ) {
     this.signupForm = this.fb.group(
       {
+        name: ['', [Validators.required]],
         email: ['', [Validators.required, Validators.email]],
         password: ['', [Validators.required, Validators.minLength(6)]],
         confirmPassword: ['', Validators.required],
@@ -50,14 +51,14 @@ export class SignupComponent {
     this.spinnerService.show();
     if (this.signupForm.valid) {
       try {
-        const { email, password } = this.signupForm.value;
+        const { email, password, name } = this.signupForm.value;
         const response = await this.authService.signUp(email, password);
         if (response.user) {
           // If register sucess then create user :)
           const user = response.user;
           const newUser = {
             id: user.uid,
-            name: '',
+            name,
             email: user.email!,
           };
           try {
@@ -80,6 +81,10 @@ export class SignupComponent {
     } else {
       this.signupForm.markAllAsTouched();
     }
+  }
+
+  get name() {
+    return this.signupForm.get('name');
   }
 
   get email() {
