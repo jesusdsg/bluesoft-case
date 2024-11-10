@@ -23,7 +23,7 @@ export class UserService {
       .get()
       .toPromise();
 
-    return docSnapshot?.data(); // Retorna los datos del usuario o undefined si no existe
+    return docSnapshot?.data();
   }
 
   addUser(user: IUser): Promise<any> {

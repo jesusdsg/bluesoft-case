@@ -7,7 +7,8 @@ export interface AuthState {
 }
 
 export const initialState: AuthState = {
-  user: null,
+  //user: null,
+  user: getLocalStorageUser(),
 };
 
 export const authReducer = createReducer(
@@ -15,3 +16,11 @@ export const authReducer = createReducer(
   on(login, (state, { user }) => ({ ...state, user })),
   on(logout, (state) => ({ ...state, user: null }))
 );
+
+function getLocalStorageUser(): IUser | null {
+  if (typeof sessionStorage !== 'undefined') {
+    const user = sessionStorage.getItem('user');
+    return user ? JSON.parse(user) : null;
+  }
+  return null;
+}

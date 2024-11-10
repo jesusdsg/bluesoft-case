@@ -9,6 +9,8 @@ import { provideToastr } from 'ngx-toastr';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideStore } from '@ngrx/store';
 import { authReducer } from '../app/store/auth/auth.reducer';
+import { AuthEffects } from './store/auth/auth.effect';
+import { provideEffects } from '@ngrx/effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,5 +21,6 @@ export const appConfig: ApplicationConfig = {
     provideToastr(),
     provideAnimations(),
     provideStore({ auth: authReducer }),
+    //provideEffects([AuthEffects]),
   ],
 };
