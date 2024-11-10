@@ -59,9 +59,10 @@ export class SignupComponent {
           // If register sucess then create user :)
           const user = response.user;
           const newUser = {
-            id: user.uid,
+            uid: user.uid,
             name,
             email: user.email!,
+            balance: 0,
           };
           try {
             await this.userService.addUser(newUser);

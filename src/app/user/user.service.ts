@@ -2,12 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
 import { usersCollection } from '../../utils/constants';
-
-export interface User {
-  id?: string;
-  name?: string;
-  email: string;
-}
+import { IUser } from '../types/User';
 
 @Injectable({
   providedIn: 'root',
@@ -15,18 +10,21 @@ export interface User {
 export class UserService {
   constructor(private firestore: AngularFirestore) {}
 
-  getUsers(): Observable<User[]> {
+  getUsers(): Observable<IUser[]> {
     return this.firestore
-      .collection<User>(usersCollection)
+      .collection<IUser>(usersCollection)
       .valueChanges({ idField: 'id' });
   }
 
-  addUser(user: User): Promise<any> {
-    return this.firestore.collection(usersCollection).doc(user.id).set(user);
+  addUser(user: IUser): Promise<any> {
+    return this.firestore.collection(usersCollection).doc(user.uid).set(user);
   }
 
-  updateUser(id: string, user: Partial<User>): Promise<void> {
-    return this.firestore.collection(usersCollection).doc(user.id).update(user);
+  updateUser(id: string, user: Partial<IUser>): Promise<void> {
+    return this.firestore
+      .collection(usersCollection)
+      .doc(user.uid)
+      .update(user);
   }
 
   deleteUser(id: string): Promise<void> {
