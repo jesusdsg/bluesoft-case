@@ -10,6 +10,7 @@ import { SpinnerService } from '../../common/spinner/spinner.service';
 import { FirebaseError } from '@angular/fire/app';
 import { validateError } from '../../../utils/firebaseAuthCodes';
 import { ToastrService } from 'ngx-toastr';
+import { UserService } from '../../user/user.service';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +27,8 @@ export class LoginComponent {
     private store: Store<{ auth: AuthState }>,
     private router: Router,
     private spinnerService: SpinnerService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private userService: UserService
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -41,10 +43,14 @@ export class LoginComponent {
         const { email, password } = this.loginForm.value;
         const response = await this.authService.signIn(email, password);
         if (response.user) {
+          const existingUser = await this.userService.getUser(
+            response.user.uid
+          );
           const user: IUser = {
             uid: response.user.uid,
-            name: '',
+            name: existingUser?.name,
             email: response.user.email!,
+            balance: existingUser?.balance,
           };
           // Store user and go to detail
           this.store.dispatch(login({ user }));

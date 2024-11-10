@@ -1,5 +1,5 @@
 import { AsyncPipe, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { logout } from '../../store/auth/auth.actions';
 import { IUser } from '../../types/User';
@@ -17,9 +17,8 @@ import { UserService } from '../user.service';
   templateUrl: './detail.component.html',
   styleUrl: './detail.component.scss',
 })
-export class DetailComponent {
+export class DetailComponent implements OnInit {
   newValue: number = 0;
-  balance: number = 0;
   isWithdrawal: boolean = false;
   isDeposit: boolean = false;
   currentUser$: Observable<IUser | null>;
@@ -32,6 +31,13 @@ export class DetailComponent {
   ) {
     this.currentUser$ = this.store.pipe(select(selectCurrentUser));
   }
+
+  ngOnInit(): void {
+    this.currentUser$.subscribe((user) => {
+      console.log('Usuario actual:', user); // Esto debería mostrar el usuario actual o `null` si no existe
+    });
+  }
+
   logoutUser() {
     this.store.dispatch(logout());
     this.router.navigate(['/auth/login']);
@@ -52,16 +58,23 @@ export class DetailComponent {
     this.isWithdrawal = false;
   }
 
-  async performAction(balance: number) {
+  async performAction(uid: string, balance: number) {
     // Deposit
     if (this.isDeposit) {
-      const user = {
-        balance: balance + this.newValue,
-      };
-      try {
-        await this.userService.updateUser('', user);
-      } catch (error) {
-        console.log('Error updating', error);
+      if (this.newValue > 0) {
+        const user = {
+          balance: balance + this.newValue,
+        };
+        try {
+          await this.userService.updateUser(uid, user);
+          this.toastr.success(
+            `Usted ha depositado ${this.newValue} en su cuenta`
+          );
+        } catch (error) {
+          this.toastr.error('Ha ocurrido un error al realizar el depósito');
+        }
+      } else {
+        this.toastr.error('Ingrese un valor válido');
       }
     } else {
       // WithDrawal
@@ -70,6 +83,17 @@ export class DetailComponent {
           'No puedes retirar una cantidad mayor a la de tu saldo'
         );
       } else {
+        const user = {
+          balance: balance - this.newValue,
+        };
+        try {
+          await this.userService.updateUser(uid, user);
+          this.toastr.success(
+            `Usted ha retirado ${this.newValue} de su cuenta`
+          );
+        } catch (error) {
+          this.toastr.error('Ha ocurrido un error al realizar el retiro');
+        }
       }
     }
   }

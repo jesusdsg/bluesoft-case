@@ -18,7 +18,10 @@
         [(ngModel)]="newValue"
       />
       <span>Su saldo es: {{ currentUser.balance }}</span>
-      <button class="btn btn-secondary" (click)="performAction(balance)">
+      <button
+        class="btn btn-secondary"
+        (click)="performAction(currentUser.uid, currentUser.balance!)"
+      >
         {{ isDeposit ? "Depositar" : "Retirar" }}
       </button>
       <button class="btn btn-error" (click)="cancelAction()">Cancelar</button>

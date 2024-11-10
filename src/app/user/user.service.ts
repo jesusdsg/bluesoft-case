@@ -16,18 +16,25 @@ export class UserService {
       .valueChanges({ idField: 'id' });
   }
 
+  async getUser(uid: string): Promise<IUser | undefined> {
+    const docSnapshot = await this.firestore
+      .collection<IUser>(usersCollection)
+      .doc(uid)
+      .get()
+      .toPromise();
+
+    return docSnapshot?.data(); // Retorna los datos del usuario o undefined si no existe
+  }
+
   addUser(user: IUser): Promise<any> {
     return this.firestore.collection(usersCollection).doc(user.uid).set(user);
   }
 
-  updateUser(id: string, user: Partial<IUser>): Promise<void> {
-    return this.firestore
-      .collection(usersCollection)
-      .doc(user.uid)
-      .update(user);
+  updateUser(uid: string, user: Partial<IUser>): Promise<void> {
+    return this.firestore.collection(usersCollection).doc(uid).update(user);
   }
 
-  deleteUser(id: string): Promise<void> {
-    return this.firestore.collection(usersCollection).doc(id).delete();
+  deleteUser(uid: string): Promise<void> {
+    return this.firestore.collection(usersCollection).doc(uid).delete();
   }
 }
