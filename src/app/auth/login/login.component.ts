@@ -3,8 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../core/auth.service';
 import { AuthState } from '../../core/auth.reducer';
 import { Store } from '@ngrx/store';
-import { user } from '@angular/fire/auth';
 import { login } from '../../core/auth.actions';
+import { IUser } from '../../types/User';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,8 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     public authService: AuthService,
-    private store: Store<{ auth: AuthState }>
+    private store: Store<{ auth: AuthState }>,
+    private router: Router
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -28,20 +30,23 @@ export class LoginComponent {
 
   async onSubmit() {
     if (this.loginForm.valid) {
-      console.log('Formulario enviado:', this.loginForm.value);
       try {
         const { email, password } = this.loginForm.value;
         const response = await this.authService.signIn(email, password);
         if (response.user) {
-          console.log('Response is ', response);
-          const user = response.user;
+          const user: IUser = {
+            uid: response.user.uid,
+            name: '',
+            email: response.user.email!,
+          };
+          // Store user and go to detail
           this.store.dispatch(login({ user }));
+          this.router.navigate(['/user/list']);
         }
       } catch (error) {
         console.log('Error is ', error);
       }
     } else {
-      console.log('Formulario inválido');
       this.loginForm.markAllAsTouched();
     }
   }

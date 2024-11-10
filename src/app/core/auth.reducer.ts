@@ -1,10 +1,9 @@
-// auth.reducer.ts
 import { createReducer, on } from '@ngrx/store';
 import { login, logout } from './auth.actions';
-import { User } from 'firebase/auth';
+import { IUser } from '../types/User';
 
 export interface AuthState {
-  user: User | null;
+  user: IUser | null;
 }
 
 export const initialState: AuthState = {
