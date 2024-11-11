@@ -1,7 +1,7 @@
 <div class="container">
   <div class="wrapper">
     <div class="header">
-      <a class="back" routerLink="/user/detail">Volver</a>
+      <button class="back" (click)="logoutUser()">Logout</button>
       <h2>Lista de usuarios</h2>
     </div>
     <div class="inner-container">
@@ -11,22 +11,24 @@
           {{ month.label }}
         </option>
       </select>
-      <button class="btn btn-primary">Generar</button>
+      <button class="btn btn-primary" (click)="generateReport()">
+        Generar
+      </button>
     </div>
     <div class="table-container">
       <table>
         <thead>
           <tr>
-            <th>Fecha</th>
-            <th>Tipo</th>
-            <th>Monto</th>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>No de Transacciones</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let user of users">
-            <!--    <td>{{ transaction.createdAt | date : "dd/MM/yyyy" }}</td>
-            <td>{{ transaction.type | transactionType }}</td>
-            <td>{{ transaction.amount | currency }}</td> -->
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.transactionCount }}</td>
           </tr>
           <span class="info" *ngIf="users.length == 0"
             >No se han encontrado registros...</span
