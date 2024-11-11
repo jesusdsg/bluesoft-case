@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { ITransaction } from '../types/Transaction';
+import { ITransaction } from '../../types/Transaction';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { transactionsCollection } from '../../utils/constants';
+import { transactionsCollection } from '../../../utils/constants';
 
 @Injectable({
   providedIn: 'root',

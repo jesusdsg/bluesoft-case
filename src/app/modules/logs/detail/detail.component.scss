@@ -1,0 +1,79 @@
+.container {
+  background-color: #d4d6f5;
+  min-height: 100vh;
+  padding: 5rem 10rem;
+
+  @media only screen and (max-width: 600px) {
+    padding: 0;
+    width: 100%;
+  }
+
+  .back {
+    text-decoration: none;
+    color: #fff;
+    background-color: #7b7fbb;
+    padding: 0.2rem 1rem;
+    border-radius: 5px;
+    transition-duration: 0.5s;
+
+    &:hover {
+      color: #fff;
+      background-color: #7b7fbb;
+    }
+    &:visited {
+      color: #fff;
+    }
+  }
+
+  .wrapper {
+    background-color: #fff;
+    padding: 1rem;
+    width: 60%;
+    margin: auto;
+    border-radius: 10px;
+    border: 1px solid #bec3f1;
+
+    @media only screen and (max-width: 600px) {
+      width: 100%;
+    }
+
+    .inner-container {
+      padding: 0.5rem 1rem;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    select {
+      background-color: #e6e6e6;
+      padding: 0.2rem 0.5rem;
+      border-radius: 10px;
+    }
+
+    .table-container {
+      margin: auto;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .info {
+      margin-top: 1rem;
+      display: block;
+    }
+
+    th,
+    td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f4f4f4;
+    }
+  }
+}

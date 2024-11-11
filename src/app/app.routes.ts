@@ -8,8 +8,20 @@ export const routes: Routes = [
   },
   {
     path: 'user',
-    loadChildren: () => import('./user/user.module').then((m) => m.UserModule),
+    loadChildren: () =>
+      import('./modules/user/user.module').then((m) => m.UserModule),
     canActivate: [AuthGuard],
+  },
+  {
+    path: 'log',
+    loadChildren: () =>
+      import('./modules/logs/logs.module').then((m) => m.LogsModule),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: '',
+    redirectTo: 'auth/login',
+    pathMatch: 'full',
   },
   { path: '**', redirectTo: 'auth/login' },
 ];

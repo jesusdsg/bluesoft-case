@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
-import { usersCollection } from '../../utils/constants';
-import { IUser } from '../types/User';
+import { usersCollection } from '../../../utils/constants';
+import { IUser } from '../../types/User';
 
 @Injectable({
   providedIn: 'root',

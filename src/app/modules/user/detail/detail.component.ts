@@ -1,28 +1,26 @@
-import { AsyncPipe, NgIf } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { login, logout } from '../../store/auth/auth.actions';
-import { IUser } from '../../types/User';
-import { Observable } from 'rxjs';
-import { selectCurrentUser } from '../../store/auth/auth.selector';
+import { login, logout } from '../../../store/auth/auth.actions';
+import { IUser } from '../../../types/User';
+import { Subscription } from 'rxjs';
+import { selectCurrentUser } from '../../../store/auth/auth.selector';
 import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../user.service';
 import { TransactionService } from '../../transaction/transaction.service';
 
 @Component({
   selector: 'app-detail',
-  standalone: true,
-  imports: [NgIf, AsyncPipe, FormsModule],
+  standalone: false,
   templateUrl: './detail.component.html',
   styleUrl: './detail.component.scss',
 })
 export class DetailComponent {
+  private subscription: Subscription = new Subscription();
   newValue: string = '';
   isWithdrawal: boolean = false;
   isDeposit: boolean = false;
-  currentUser$: Observable<IUser | null>;
+  currentUser: IUser | null = null;
 
   constructor(
     private store: Store,
@@ -30,8 +28,18 @@ export class DetailComponent {
     private toastr: ToastrService,
     private userService: UserService,
     private transactionService: TransactionService
-  ) {
-    this.currentUser$ = this.store.pipe(select(selectCurrentUser));
+  ) {}
+
+  ngOnInit() {
+    this.subscription.add(
+      this.store.pipe(select(selectCurrentUser)).subscribe((user) => {
+        this.currentUser = user;
+      })
+    );
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   logoutUser() {
