@@ -1,5 +1,6 @@
 <div class="container">
   <div class="wrapper">
+    <a class="back" routerLink="/user/detail">Volver</a>
     <div class="inner-container">
       <label>Seleccione el mes: </label>
       <select [(ngModel)]="selectedMonth">
@@ -26,7 +27,7 @@
             <td>{{ transaction.type | transactionType }}</td>
             <td>{{ transaction.amount | currency }}</td>
           </tr>
-          <span *ngIf="transactions.length == 0"
+          <span class="info" *ngIf="transactions.length == 0"
             >No se han encontrado registros...</span
           >
         </tbody>

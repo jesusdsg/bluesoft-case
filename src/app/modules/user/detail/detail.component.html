@@ -7,7 +7,7 @@
         Retirar
       </button>
       <button class="btn btn-primary">Transferir</button>
-      <button class="btn btn-primary" routerLink="/log">Extractos</button>
+      <button class="btn btn-primary" routerLink="/log">Movimientos</button>
       <button class="btn btn-error" (click)="logoutUser()">
         Cerrar sesión
       </button>
@@ -19,7 +19,7 @@
         placeholder="Ingrese el monto"
         [(ngModel)]="newValue"
       />
-      <span>Su saldo es: {{ currentUser.balance }}</span>
+      <span>Su saldo es: ${{ currentUser.balance }}</span>
       <button
         class="btn btn-secondary"
         (click)="performAction(currentUser.uid, currentUser.balance!)"

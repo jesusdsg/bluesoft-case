@@ -1,12 +1,10 @@
-import { AsyncPipe, NgIf } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { login, logout } from '../../../store/auth/auth.actions';
 import { IUser } from '../../../types/User';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { selectCurrentUser } from '../../../store/auth/auth.selector';
 import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../user.service';
 import { TransactionService } from '../../transaction/transaction.service';

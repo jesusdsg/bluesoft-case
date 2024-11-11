@@ -6,8 +6,12 @@ export function getStorage() {
 
 export function getLocalStorageUser(): IUser | null {
   if (typeof localStorage !== 'undefined') {
-    const user = localStorage.getItem('auth');
-    return user ? JSON.parse(user) : null;
+    const userData = localStorage.getItem('auth');
+    if (userData) {
+      const parsedData = JSON.parse(userData);
+      return parsedData?.user || null;
+    }
+    return null;
   }
   return null;
 }

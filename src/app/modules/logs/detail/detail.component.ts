@@ -6,6 +6,8 @@ import { selectCurrentUser } from '../../../store/auth/auth.selector';
 import { select, Store } from '@ngrx/store';
 import { IUser } from '../../../types/User';
 import { ITransaction } from '../../../types/Transaction';
+import { ToastrService } from 'ngx-toastr';
+import { SpinnerService } from '../../../common/spinner/spinner.service';
 
 @Component({
   selector: 'app-detail',
@@ -17,8 +19,13 @@ export class DetailComponent {
   currentUser: IUser | null = null;
   transactions: ITransaction[] = [];
   private subscription: Subscription = new Subscription();
-  constructor(private store: Store, private logService: LogService) {}
-  selectedMonth: string = '';
+  constructor(
+    private store: Store,
+    private logService: LogService,
+    private toastr: ToastrService,
+    private spinnerService: SpinnerService
+  ) {}
+  selectedMonth: string = (new Date().getMonth() + 1).toString();
 
   months: ISelectItem[] = [
     { label: 'Enero', value: 1 },
@@ -41,6 +48,7 @@ export class DetailComponent {
         this.currentUser = user;
       })
     );
+    this.generateReport();
   }
 
   ngOnDestroy() {
@@ -48,6 +56,7 @@ export class DetailComponent {
   }
 
   async generateReport() {
+    this.spinnerService.show();
     try {
       const currentYear = new Date().getFullYear();
       if (this.currentUser) {
@@ -57,10 +66,11 @@ export class DetailComponent {
           currentYear
         );
         this.transactions = response;
-        console.log('Response ', response);
       }
+      this.spinnerService.hide();
     } catch (error) {
-      console.log('Error ', error);
+      this.spinnerService.hide();
+      this.toastr.error('Ha ocurrido un error obteniendo los datos');
     }
   }
 }
