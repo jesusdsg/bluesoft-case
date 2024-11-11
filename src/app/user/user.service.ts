@@ -1,36 +1,40 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
-
-export interface User {
-  id?: string;
-  name: string;
-  email: string;
-}
+import { usersCollection } from '../../utils/constants';
+import { IUser } from '../types/User';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private collectionName = 'users';
-
   constructor(private firestore: AngularFirestore) {}
 
-  getUsers(): Observable<User[]> {
+  getUsers(): Observable<IUser[]> {
     return this.firestore
-      .collection<User>(this.collectionName)
+      .collection<IUser>(usersCollection)
       .valueChanges({ idField: 'id' });
   }
 
-  addUser(user: User): Promise<any> {
-    return this.firestore.collection(this.collectionName).add(user);
+  async getUser(uid: string): Promise<IUser | undefined> {
+    const docSnapshot = await this.firestore
+      .collection<IUser>(usersCollection)
+      .doc(uid)
+      .get()
+      .toPromise();
+
+    return docSnapshot?.data();
   }
 
-  updateUser(id: string, user: Partial<User>): Promise<void> {
-    return this.firestore.collection(this.collectionName).doc(id).update(user);
+  addUser(user: IUser): Promise<any> {
+    return this.firestore.collection(usersCollection).doc(user.uid).set(user);
   }
 
-  deleteUser(id: string): Promise<void> {
-    return this.firestore.collection(this.collectionName).doc(id).delete();
+  updateUser(uid: string, user: Partial<IUser>): Promise<void> {
+    return this.firestore.collection(usersCollection).doc(uid).update(user);
+  }
+
+  deleteUser(uid: string): Promise<void> {
+    return this.firestore.collection(usersCollection).doc(uid).delete();
   }
 }

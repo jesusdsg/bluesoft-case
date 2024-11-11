@@ -4,11 +4,18 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FirebaseApp } from '@angular/fire/app';
-import { Firestore } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFireAuthGuardModule } from '@angular/fire/compat/auth-guard';
 
 @NgModule({
   declarations: [LoginComponent, SignupComponent],
-  imports: [CommonModule, AuthRoutingModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    AuthRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    AngularFireAuthGuardModule,
+    AngularFireAuthModule,
+  ],
 })
 export class AuthModule {}

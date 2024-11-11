@@ -8,18 +8,17 @@ import { Router } from '@angular/router';
 export class AuthService {
   constructor(private afAuth: AngularFireAuth, private router: Router) {}
 
-  signUp(email: string, password: string) {
-    return this.afAuth.createUserWithEmailAndPassword(email, password);
+  async signUp(email: string, password: string) {
+    return await this.afAuth.createUserWithEmailAndPassword(email, password);
   }
 
-  signIn(email: string, password: string) {
-    return this.afAuth.signInWithEmailAndPassword(email, password);
+  async signIn(email: string, password: string) {
+    return await this.afAuth.signInWithEmailAndPassword(email, password);
   }
 
-  signOut() {
-    return this.afAuth
-      .signOut()
-      .then(() => this.router.navigate(['/auth/login']));
+  async signOut() {
+    await this.afAuth.signOut();
+    return await this.router.navigate(['/auth/login']);
   }
 
   isAuthenticated() {

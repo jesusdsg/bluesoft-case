@@ -1,1 +1,75 @@
-<p>signup works!</p>
+<div class="login-container">
+  <div class="login-box">
+    <h2>Registro de usuario</h2>
+    <p>Bienvenido a Bluesoft, vamos a comenzar</p>
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+      <!-- Name field -->
+      <input
+        class="input"
+        type="text"
+        placeholder="Ingresa tu nombre"
+        formControlName="name"
+      />
+      <!-- Name errors -->
+      <div *ngIf="name?.touched && name?.invalid" class="error">
+        <small *ngIf="name?.errors?.['required']"
+          >Este campo es requerido</small
+        >
+      </div>
+      <!-- Email field -->
+      <input
+        class="input"
+        type="email"
+        placeholder="Ingresa tu email"
+        formControlName="email"
+      />
+      <!-- Email errors -->
+      <div *ngIf="email?.touched && email?.invalid" class="error">
+        <small *ngIf="email?.errors?.['required']"
+          >Este campo es requerido</small
+        >
+        <small *ngIf="email?.errors?.['email']">Ingresa un email válido</small>
+      </div>
+      <!-- Password field -->
+      <input
+        class="input"
+        type="password"
+        placeholder="Ingresa tu contraseña"
+        formControlName="password"
+      />
+      <!-- Password errors -->
+      <div *ngIf="password?.touched && password?.invalid" class="error">
+        <small *ngIf="password?.errors?.['required']"
+          >Este campo es requerido</small
+        >
+      </div>
+      <!-- Confirm field -->
+      <input
+        class="input"
+        type="password"
+        placeholder="Confirma tu contraseña"
+        formControlName="confirmPassword"
+      />
+      <!-- Confirm errors -->
+      <div
+        *ngIf="confirmPassword?.invalid && confirmPassword?.touched"
+        class="error"
+      >
+        <small *ngIf="confirmPassword?.errors?.['required']"
+          >La confirmación de la contraseña es requerida</small
+        >
+      </div>
+      <div
+        *ngIf="signupForm.errors?.['passwordMismatch'] && confirmPassword?.touched"
+        class="error"
+      >
+        <small>Las contraseñas no coinciden</small>
+      </div>
+      <button class="btn btn-primary" type="submit">Login</button>
+    </form>
+    <p class="request">Ya tienes cuenta? <a href="/login">Loguéate</a></p>
+    <footer>
+      <p>Copyright © Jesusdsg 2024 | Privacy Policy</p>
+    </footer>
+  </div>
+</div>
