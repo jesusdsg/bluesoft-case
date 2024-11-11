@@ -1,27 +1,49 @@
 # Bluesoft
-
+Hello, I'm Jesus and this is a basic test project for training and example purposes. It is deploying in vercel so you can feel free to go there and test the Application.
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.11.
 
-## Development server
+## In local
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-## Code scaffolding
+## Code explication:
+Well, the project is actually very simple, based on the Bluesoft problem case. 
+I used angular with firebase mainly to streamline the development process.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Reactive libraries like ngrx.
+- Use of guards to protect routes.
+- Auth by email system stored in the cloud.
+- Non-relational database in the cloud as well.
+- Pipes, Types, etc.
+  
+## Features  
 
-## Build
+- Roles system
+- Generate reports by month filter
+- Login and register
+- Deposit emulator
+- Withdrawal emulator
+- Transfer to other accounts (still in progress)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+You can login with different types of users below I will provide two with different roles.
+```
+{
+  "username": "admin@mail.com",
+  "password": "123456",
+}
+```
 
-## Running unit tests
+```
+{
+  "username": "user@mail.com",
+  "password": "123456",
+}
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+With this you can now try the application for yourself.
 
-## Running end-to-end tests
+Greetings and I look forward to your comments and feedback, thank you! :smile:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
-## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
