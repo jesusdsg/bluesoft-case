@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { months } from '../../../../utils/constants';
-import { IUser, IUsersResult } from '../../../types/User';
+import { IUsersResult } from '../../../types/User';
 import { LogService } from '../../logs/log.service';
 import { SpinnerService } from '../../../common/spinner/spinner.service';
 import { ToastrService } from 'ngx-toastr';
@@ -43,7 +43,6 @@ export class ListComponent implements OnInit {
         parseInt(this.selectedMonth),
         currentYear
       );
-      console.log('Get', response);
       this.users = response;
       this.spinnerService.hide();
     } catch (error) {
