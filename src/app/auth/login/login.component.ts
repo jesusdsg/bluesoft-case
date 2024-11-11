@@ -10,7 +10,7 @@ import { SpinnerService } from '../../common/spinner/spinner.service';
 import { FirebaseError } from '@angular/fire/app';
 import { validateError } from '../../../utils/firebaseAuthCodes';
 import { ToastrService } from 'ngx-toastr';
-import { UserService } from '../../user/user.service';
+import { UserService } from '../../modules/user/user.service';
 
 @Component({
   selector: 'app-login',

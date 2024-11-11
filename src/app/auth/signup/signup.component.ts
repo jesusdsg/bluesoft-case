@@ -10,7 +10,7 @@ import { AuthService } from '../../core/auth.service';
 import { SpinnerService } from '../../common/spinner/spinner.service';
 import { validateError } from '../../../utils/firebaseAuthCodes';
 import { ToastrService } from 'ngx-toastr';
-import { UserService } from '../../user/user.service';
+import { UserService } from '../../modules/user/user.service';
 import { FirebaseError } from '@angular/fire/app';
 import { Router } from '@angular/router';
 
