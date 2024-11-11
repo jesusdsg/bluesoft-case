@@ -1,5 +1,7 @@
 # Bluesoft
-Hello, I'm Jesus and this is a basic test project for training and example purposes. It is deploying in vercel so you can feel free to go there and test the Application.:sunglasses:
+Hello, I'm Jesus and this is a basic test project for training and example purposes. It is deploying in vercel so you can feel free to go there and test the Application. :sunglasses:
+
+https://bluesoft-case.vercel.app/auth/login
 
 ## In local
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
