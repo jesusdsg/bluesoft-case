@@ -10,10 +10,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideStore } from '@ngrx/store';
 import { authReducer } from '../app/store/auth/auth.reducer';
 import { localStorageSync } from 'ngrx-store-localstorage';
-
-export function getStorage() {
-  return typeof sessionStorage !== 'undefined' ? sessionStorage : null;
-}
+import { getStorage } from '../utils/localStorage';
 
 export const appConfig: ApplicationConfig = {
   providers: [
