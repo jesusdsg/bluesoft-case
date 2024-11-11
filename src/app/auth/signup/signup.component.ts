@@ -63,6 +63,7 @@ export class SignupComponent {
             name,
             email: user.email!,
             balance: 0,
+            role: 'user',
           };
           try {
             await this.userService.addUser(newUser);

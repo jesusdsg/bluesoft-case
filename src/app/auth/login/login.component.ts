@@ -51,10 +51,11 @@ export class LoginComponent {
             name: existingUser?.name,
             email: response.user.email!,
             balance: existingUser?.balance,
+            role: existingUser?.role!,
           };
           // Store user and go to detail
           this.store.dispatch(login({ user }));
-          this.router.navigate(['/user/detail']);
+          this.redirectByRol(existingUser?.role!);
           this.spinnerService.hide();
         }
       } catch (error) {
@@ -76,5 +77,13 @@ export class LoginComponent {
 
   get password() {
     return this.loginForm.get('password');
+  }
+
+  redirectByRol(role: string) {
+    if (role == 'admin') {
+      this.router.navigate(['/user/list']);
+    } else {
+      this.router.navigate(['/user/detail']);
+    }
   }
 }

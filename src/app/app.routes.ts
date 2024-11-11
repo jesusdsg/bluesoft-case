@@ -18,5 +18,10 @@ export const routes: Routes = [
       import('./modules/logs/logs.module').then((m) => m.LogsModule),
     canActivate: [AuthGuard],
   },
+  {
+    path: '',
+    redirectTo: 'auth/login',
+    pathMatch: 'full',
+  },
   { path: '**', redirectTo: 'auth/login' },
 ];

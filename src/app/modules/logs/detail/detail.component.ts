@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ISelectItem } from '../../../types/SelectItem';
 import { LogService } from '../log.service';
 import { Subscription } from 'rxjs';
 import { selectCurrentUser } from '../../../store/auth/auth.selector';
@@ -8,6 +7,7 @@ import { IUser } from '../../../types/User';
 import { ITransaction } from '../../../types/Transaction';
 import { ToastrService } from 'ngx-toastr';
 import { SpinnerService } from '../../../common/spinner/spinner.service';
+import { months } from '../../../../utils/constants';
 
 @Component({
   selector: 'app-detail',
@@ -27,20 +27,7 @@ export class DetailComponent {
   ) {}
   selectedMonth: string = (new Date().getMonth() + 1).toString();
 
-  months: ISelectItem[] = [
-    { label: 'Enero', value: 1 },
-    { label: 'Febrero', value: 2 },
-    { label: 'Marzo', value: 3 },
-    { label: 'Abril', value: 4 },
-    { label: 'Mayo', value: 5 },
-    { label: 'Junio', value: 6 },
-    { label: 'Julio', value: 7 },
-    { label: 'Agosto', value: 8 },
-    { label: 'Septiembre', value: 9 },
-    { label: 'Octubre', value: 10 },
-    { label: 'Noviembre', value: 11 },
-    { label: 'Diciembre', value: 12 },
-  ];
+  months = months;
 
   ngOnInit() {
     this.subscription.add(

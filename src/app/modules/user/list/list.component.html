@@ -1,1 +1,38 @@
-<p>list works!</p>
+<div class="container">
+  <div class="wrapper">
+    <div class="header">
+      <a class="back" routerLink="/user/detail">Volver</a>
+      <h2>Lista de usuarios</h2>
+    </div>
+    <div class="inner-container">
+      <label>Seleccione el mes: </label>
+      <select [(ngModel)]="selectedMonth">
+        <option *ngFor="let month of months" [value]="month.value">
+          {{ month.label }}
+        </option>
+      </select>
+      <button class="btn btn-primary">Generar</button>
+    </div>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Tipo</th>
+            <th>Monto</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users">
+            <!--    <td>{{ transaction.createdAt | date : "dd/MM/yyyy" }}</td>
+            <td>{{ transaction.type | transactionType }}</td>
+            <td>{{ transaction.amount | currency }}</td> -->
+          </tr>
+          <span class="info" *ngIf="users.length == 0"
+            >No se han encontrado registros...</span
+          >
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
